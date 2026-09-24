@@ -43,6 +43,63 @@ void stringCopy( const char * source, char * dest){
         i++;
     }
 }
+
+int countVowels(const char * source){
+    int count = 0;
+    char dest[50];
+    int len = strlen(source);
+    char data[10] = {'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'};
+    for(int i = 0; i<len;i++){
+        
+        *(dest+i) = *(source+i);
+        
+        for(int j = 0; j<10;j++){
+            if(*(source+i) == data[j]){
+                count++;
+            }
+        }
+    }
+    printf("Source = %s | dest = %s\n",source, dest);
+    return count;
+}
+
+void pointerWalk(const char * source){
+    const char * ptr = source;
+    while(*ptr != '\0'){
+        printf("ptr dereference = %c\n", *ptr);
+        ptr++;
+    }
+}
+
+int count_vowels(const char *s) {
+    int count = 0;
+    const char *p = s;
+
+    while (*p != '\0') {
+        char c = *p;
+
+        // Check if the current character is a vowel (case-insensitive)
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+            c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+            count++;
+        }
+        p++; // Move to the next character
+    }
+    return count;
+}
+
+int constFun(char *s){
+    const char * ptr1 = s;
+    char const * ptr2 = s;
+    char * const ptr3 = s;
+
+    ptr1++;
+    ptr2++;
+    (*ptr3)++;
+
+    printf("ptr1 = %c, ptr2 = %c, ptr3 = %c", *ptr1, *ptr2, *ptr3);
+}
+
 int main(){
     /* EXERCISE 6
     Use pointer arithmetic to traverse an integer array and print all its elements.
@@ -88,5 +145,16 @@ int main(){
     stringCopy(source,dest);
 
     printf("source = %s | destination = %s\n", source, dest);
+
+    /* EXERCISE 13
+     Count the number of vowels (A, E, I, O, U, and their lowercase counterparts) in a given string using a character pointer for traversal.
+    */
+    char sentence[] = "The quick brown fox Jumps over the lazy dog";
+    printf("number of vowels = %d\n",count_vowels(sentence));
+
+    //pointerWalk(sentence);
+
+    constFun(sentence);
+
     return 0;
 }
