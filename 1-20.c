@@ -10,15 +10,41 @@ void allocate_memory( int ** ptr){
     }
     *ptr = new_ptr;
     **ptr = 99;
-
 }
 
 void swap_values(int * a, int * b){
     *a = *a ^ *b;
     *b = *a ^ *b;
     *a = *a ^ *b;
-
 }
+
+void find_maxima(int * arr, int len, int * min, int * max){
+    *min = *arr;
+    *max = *arr;
+    for(int i = 0; i < len; i++){
+        if(*max < *(arr+i)){
+            *max = *(arr+i);
+        }
+        if(*min > *(arr+i)){
+            *min = *(arr+i);
+        }
+    }
+}
+
+int add(int a, int b){
+    return a+b;
+}
+
+typedef struct{
+    int x;
+    int y;
+}Point;
+
+typedef struct{
+    int id;
+    float gpa;
+}Student;
+
 
 int main(){
     /* EXERCISE 20
@@ -67,5 +93,49 @@ int main(){
     printf("a = %d | b = %d\n", a , b);
     swap_values(&a,&b);
     printf("a = %d | b = %d\n", a , b);
+
+    int arr[] = {1,2,3,4,5,6,10,7,8,9};
+    int size = 10;
+    int min = 0;
+    int max = 0;
+    int * min_ptr = &min;
+    int * max_ptr = &max;
+    find_maxima(arr, size, min_ptr, max_ptr);
+    printf("Minimum value = %d | Max value = %d\n",min,max);
+
+    /* Exercise 25
+    Declare a function pointer that can point to a function that takes two integers and returns an integer. 
+    Assign it to a simple add function. 
+    Call the add function using both its original name and the function pointer.
+    */
+    int (*func_ptr)(int, int) = add;
+
+    printf("add = %d | ptr = %d\n" ,add(1,2),func_ptr(1,2));
+
+    /* Exercise 26
+    Define a structure Point with members x and y. Declare a variable of this structure and a pointer to it. Access and modify the structure members
+    */
+    Point pointt;
+    Point * p = &pointt;
+    p->x = 10;
+    p->y = 20;
+    printf("%d, %d | %d, %d\n",pointt.x, pointt.y, p->x, p->y);
+    p->x = 40;
+    printf("%d, %d | %d, %d\n",pointt.x, pointt.y, p->x, p->y);
+
+
+    /* Exercise 27
+    Define a struct Student with id (int) and gpa (float). 
+    Create an array of 3 Student structures and initialize them. 
+    Use a structure pointer to iterate through the array and print the id and gpa of each student.
+    */
+    Student Stud_arr[3] = { {1,2.1}, {43,0.1}, {5,6.7}};
+
+    Student * stud_ptr = Stud_arr;
+
+    for(int i = 0; i < 3; i++){
+        printf("Student %d | id: %d | gpa: %f\n", i+1, (stud_ptr+i)->id, (stud_ptr+i)->gpa);
+    }
+
     return 0;
 }
