@@ -156,5 +156,7 @@ int main(){
 
     constFun(sentence);
 
+    malloc
+
     return 0;
 }
